@@ -1,0 +1,11 @@
+<% content_for :title, "New tracked keyword" %>
+
+<h1>New tracked keyword</h1>
+
+<%= render "form", tracked_keyword: @tracked_keyword %>
+
+<br>
+
+<div>
+  <%= link_to "Back to tracked keywords", tracked_keywords_path %>
+</div>

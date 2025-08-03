@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Tracked keywords" %>
+
+<h1>Tracked keywords</h1>
+
+<div id="tracked_keywords">
+  <% @tracked_keywords.each do |tracked_keyword| %>
+    <%= render tracked_keyword %>
+    <p>
+      <%= link_to "Show this tracked keyword", tracked_keyword %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New tracked keyword", new_tracked_keyword_path %>
