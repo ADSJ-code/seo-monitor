@@ -13,6 +13,12 @@
 
 <h2>Ranking History</h2>
 
+<div data-controller="seo-check" data-seo-check-url-value="<%= check_rank_tracked_keyword_path(@tracked_keyword) %>">
+  <button data-action="click->seo-check#check">Verificar Ranking Agora</button>
+  <span data-seo-check-target="status"></span>
+</div>
+<br>
+
 <table>
   <thead>
     <tr>

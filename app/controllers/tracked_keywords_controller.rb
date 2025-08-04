@@ -1,5 +1,5 @@
 class TrackedKeywordsController < ApplicationController
-  before_action :set_tracked_keyword, only: %i[ show edit update destroy ]
+  before_action :set_tracked_keyword, only: %i[ show edit update destroy check_rank ]
 
   # GET /tracked_keywords or /tracked_keywords.json
   def index
@@ -21,12 +21,17 @@ class TrackedKeywordsController < ApplicationController
   end
 
   # POST /tracked_keywords or /tracked_keywords.json
+ # POST /tracked_keywords or /tracked_keywords.json
   def create
     @tracked_keyword = TrackedKeyword.new(tracked_keyword_params)
 
     respond_to do |format|
       if @tracked_keyword.save
-        format.html { redirect_to @tracked_keyword, notice: "Tracked keyword was successfully created." }
+        # ## ADICIONE A NOSSA LINHA AQUI ##
+        # Envia o job para o Sidekiq executar em segundo plano
+        SeoCheckWorker.perform_async(@tracked_keyword.id.to_s)
+
+        format.html { redirect_to @tracked_keyword, notice: "Tracked keyword was successfully created. Checking rank in the background." }
         format.json { render :show, status: :created, location: @tracked_keyword }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -57,6 +62,11 @@ class TrackedKeywordsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def check_rank
+  SeoCheckWorker.perform_async(@tracked_keyword.id.to_s)
+  head :ok
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.

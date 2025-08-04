@@ -5,4 +5,7 @@ class TrackedKeyword
   has_many :ranking_histories
   field :keyword, type: String
   field :domain, type: String
+
+  validates :keyword, presence: true
+  validates :domain, presence: true
 end

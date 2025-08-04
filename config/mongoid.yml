@@ -4,3 +4,11 @@ development:
       database: seo_monitor_dev
       hosts:
         - localhost:27017
+
+test:
+  clients:
+    default:
+      database: seo_monitor_test
+      hosts:
+        - localhost:27017
+      
