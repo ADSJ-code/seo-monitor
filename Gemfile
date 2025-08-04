@@ -6,7 +6,7 @@ ruby "3.3.3"
 gem "rails", "~> 8.0.2"
 
 # Nossas Gems Customizadas
-gem 'mongoid', '~> 8.0'
+gem 'mongoid', '~> 9.0'
 gem 'google_search_results'
 gem 'sidekiq'
 gem 'redis'

@@ -136,11 +136,10 @@ GEM
     mongo (2.21.2)
       base64
       bson (>= 4.14.1, < 6.0.0)
-    mongoid (8.1.11)
+    mongoid (9.0.7)
       activemodel (>= 5.1, < 8.1, != 7.0.0)
       concurrent-ruby (>= 1.0.5, < 2.0)
       mongo (>= 2.18.0, < 3.0.0)
-      ruby2_keywords (~> 0.0.5)
     mongoid-compatibility (1.0.0)
       activesupport
       mongoid (>= 2.0)
@@ -253,7 +252,6 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.4)
-    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.34.0)
@@ -313,7 +311,7 @@ DEPENDENCIES
   google_search_results
   importmap-rails
   jbuilder
-  mongoid (~> 8.0)
+  mongoid (~> 9.0)
   mongoid-rspec
   propshaft
   puma (>= 5.0)
