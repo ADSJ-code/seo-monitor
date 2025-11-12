@@ -1,6 +1,7 @@
 class SeoCheckWorker
   include Sidekiq::Worker
 
+  # O método perform é o que o Sidekiq executa
   def perform(tracked_keyword_id)
     tracked_keyword = TrackedKeyword.find(tracked_keyword_id)
 
@@ -14,7 +15,10 @@ class SeoCheckWorker
     search = SerpApiSearch.new(
       q: tracked_keyword.keyword,
       engine: 'google',
-      api_key: ENV['SERPAPI_KEY']
+      # CORREÇÃO: Trocado de credentials para ENV var
+      api_key: ENV['SERPAPI_KEY'],
+      # MELHORIA: Aumenta a busca para o Top 100
+      num: 100
     )
 
     results = search.get_hash
