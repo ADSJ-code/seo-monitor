@@ -1,23 +1,23 @@
+require 'uri'
+
 class SeoCheckWorker
   include Sidekiq::Worker
 
-  # O método perform é o que o Sidekiq executa
   def perform(tracked_keyword_id)
     tracked_keyword = TrackedKeyword.find(tracked_keyword_id)
-
     unless tracked_keyword
       puts "❌ Worker não conseguiu encontrar TrackedKeyword com ID: #{tracked_keyword_id}"
       return
     end
 
-    puts "🤖 Worker a verificar '#{tracked_keyword.keyword}' para o domínio '#{tracked_keyword.domain}'..."
+    clean_domain = URI.parse(tracked_keyword.domain).host.gsub("www.", "") rescue tracked_keyword.domain.gsub("www.", "")
+
+    puts "🤖 Worker a verificar '#{tracked_keyword.keyword}' para o domínio limpo '#{clean_domain}'..."
 
     search = SerpApiSearch.new(
       q: tracked_keyword.keyword,
       engine: 'google',
-      # CORREÇÃO: Trocado de credentials para ENV var
       api_key: ENV['SERPAPI_KEY'],
-      # MELHORIA: Aumenta a busca para o Top 100
       num: 100
     )
 
@@ -26,7 +26,12 @@ class SeoCheckWorker
     found_position = nil
     if results[:organic_results]
       results[:organic_results].each_with_index do |result, index|
-        if result[:link] && result[:link].include?(tracked_keyword.domain)
+        next unless result[:link]
+
+        result_host = URI.parse(result[:link]).host.gsub("www.", "") rescue nil
+        next unless result_host
+
+        if result_host.include?(clean_domain)
           found_position = index + 1
           break
         end
