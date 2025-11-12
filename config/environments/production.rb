@@ -15,8 +15,11 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
   config.i18n.fallbacks = true
   config.active_support.report_deprecations = false
-  config.require_master_key = true
-  config.credentials.key_path = Rails.root.join("config/credentials/#{Rails.env.downcase}.key")
+  
+  # Alteração aqui: mudamos de true para false
+  config.require_master_key = false 
+
+  # config.credentials.key_path = Rails.root.join("config/credentials/#{Rails.env.downcase}.key")
   config.new_framework_defaults_8_0 = true
 
   # Store uploaded files on the local file system in a temporary directory.
