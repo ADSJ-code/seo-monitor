@@ -1,3 +1,4 @@
+# Padrão para localhost se a ENV var não estiver definida
 default_redis_url = 'redis://localhost:6379'
 
 Sidekiq.configure_server do |config|
