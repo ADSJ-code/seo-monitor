@@ -7,50 +7,62 @@
 ![RSpec](https://img.shields.io/badge/RSpec-3.13-68a573.svg?style=for-the-badge&logo=rspec)
 ![StimulusJS](https://img.shields.io/badge/Stimulus-3.2-45B1F3.svg?style=for-the-badge&logo=stimulus)
 
-## Sumário
+## Summary
 
-O Advanced SEO Position Monitor é uma aplicação web full-stack construída com Ruby on Rails. A sua principal funcionalidade é permitir aos utilizadores monitorizar o ranking de um domínio para palavras-chave específicas nos resultados de busca do Google. A aplicação utiliza um sistema de background jobs para realizar as verificações de forma assíncrona e guarda o histórico de posições para análise de performance.
+The Advanced SEO Position Monitor is a full-stack web application built with Ruby on Rails. Its main functionality is to allow users to monitor a domain's ranking for specific keywords in Google search results. The application uses a background job system to perform checks asynchronously and saves the position history for performance analysis.
 
-Este projeto foi desenvolvido para demonstrar competências em desenvolvimento full-stack, incluindo a implementação de um sistema CRUD, modelagem de dados, execução de tarefas assíncronas, testes automatizados e interatividade no frontend.
+This project was developed to demonstrate full-stack development skills, including implementing a CRUD system, data modeling, asynchronous task execution, automated testing, and frontend interactivity.
 
 ---
 
-## Stack de Tecnologias
+## Tech Stack
 
 * **Framework:** Ruby on Rails 8.0.2
-* **Linguagem:** Ruby 3.3.3
-* **Banco de Dados:** MongoDB, com Mongoid ODM
-* **Background Jobs:** Sidekiq, com Redis
-* **Testes:** RSpec
+* **Language:** Ruby 3.3.3
+* **Database:** MongoDB (with Mongoid ODM)
+* **Background Jobs:** Sidekiq (with Redis)
+* **Testing:** RSpec
 * **Frontend:** StimulusJS, Pico.css
-* **Fonte de Dados Externos:** [SerpApi Google Search API](https://serpapi.com/)
-* **Ambiente de Desenvolvimento:** Docker
+* **External Data Source:** [SerpApi Google Search API](https://serpapi.com/)
+* **Development Environment:** Docker & Docker Compose
 
 ---
 
-## Funcionalidades Principais
+## Core Features
 
-* **Gestão de Palavras-chave:** Interface CRUD completa para adicionar, visualizar, editar e remover domínios e palavras-chave.
-* **Verificação de Ranking Assíncrona:** Utiliza Sidekiq para executar as buscas na SerpApi em segundo plano, proporcionando uma experiência de utilizador fluida e sem bloqueios. A verificação pode ser disparada manualmente a partir da interface.
-* **Histórico de Posições:** Cada verificação é guardada, permitindo visualizar a evolução do ranking de uma palavra-chave ao longo do tempo.
-* **Testes de Modelo:** Cobertura de testes com RSpec para garantir a integridade dos dados e a lógica das associações dos modelos.
-* **Interface Interativa:** Um botão na página de detalhes que, utilizando StimulusJS, dispara a verificação de ranking e exibe o status em tempo real sem precisar de recarregar a página.
+* **Keyword Management:** Full CRUD interface to add, view, edit, and remove domains and keywords.
+* **Asynchronous Rank Checking:** Uses Sidekiq to execute searches on the SerpApi in the background, providing a fluid, non-blocking user experience. Checks can be manually triggered from the UI.
+* **Position History:** Every check is saved, allowing users to visualize the evolution of a keyword's ranking over time.
+* **Model Tests:** RSpec test coverage to ensure data integrity and model association logic.
+* **Interactive UI:** A button on the details page that, using StimulusJS, triggers the rank check and displays the status in real-time without a page reload.
 
 ---
 
-## Como Rodar o Projeto
+## How to Run the Project
 
-1.  Clone o repositório e navegue para a pasta.
-2.  Instale as dependências: `bundle install`.
-3.  Configure sua chave da SerpApi em `bin/rails credentials:edit`.
-4.  Inicie os serviços de background: `docker start mongodb` e `docker start redis`.
-5.  Para executar a aplicação, inicie os dois servidores em terminais separados:
-    * Terminal 1: `bin/rails server`
-    * Terminal 2: `bundle exec sidekiq`
-6.  Acesse `http://localhost:3000/tracked_keywords` para usar a aplicação.
+This project is fully containerized using Docker.
 
-### Como Rodar os Testes
-Para executar a suite de testes automatizados, use o comando:
+1.  Clone the repository:
+    `git clone https://github.com/ADSJ-code/seo-monitor.git`
+
+2.  Navigate into the project directory:
+    `cd seo-monitor`
+
+3.  Create your local environment file from the example:
+    `cp .env.example .env`
+
+4.  Edit the `.env` file (e.g., `nano .env`) and add your `SERPAPI_KEY`.
+
+5.  Build the images and start all services (web, worker, db, redis):
+    `docker compose up --build`
+
+The application will be available at `http://localhost:3000`.
+
+---
+
+## How to Run Tests
+
+With the application services running (after `docker compose up`), open a **new terminal window** and run the RSpec suite inside the web container:
+
 ```bash
-bundle exec rspec
-```
+docker compose exec web bundle exec rspec

@@ -20,7 +20,7 @@ namespace :seo_checker do
       search = SerpApiSearch.new(
         q: tk.keyword,
         engine: 'google',
-        api_key: Rails.application.credentials.serpapi[:api_key]
+        api_key: ENV['SERPAPI_KEY']
       )
       
       results = search.get_hash
