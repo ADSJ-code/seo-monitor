@@ -1,4 +1,3 @@
-# app/sidekiq/seo_check_worker.rb
 require 'uri' 
 
 class SeoCheckWorker
@@ -12,34 +11,42 @@ class SeoCheckWorker
     end
 
     clean_domain = URI.parse(tracked_keyword.domain).host.gsub("www.", "") rescue tracked_keyword.domain.gsub("www.", "")
-
-    # MUDANÇA: O log agora mostra o país e idioma do job
     puts "🤖 Worker a verificar '#{tracked_keyword.keyword}' para o domínio limpo '#{clean_domain}' (País: #{tracked_keyword.gl}, Idioma: #{tracked_keyword.hl})..."
 
-    search = SerpApiSearch.new(
-      q: tracked_keyword.keyword,
-      engine: 'google',
-      api_key: ENV['SERPAPI_KEY'],
-      num: 100,
-      # CORREÇÃO: Puxa os dados do banco de dados para este job
-      gl: tracked_keyword.gl.presence || 'br', # .presence usa 'br' se estiver em branco
-      hl: tracked_keyword.hl.presence || 'pt'
-    )
-
-    results = search.get_hash
-
     found_position = nil
-    if results[:organic_results]
-      results[:organic_results].each_with_index do |result, index|
-        next unless result[:link]
-        result_host = URI.parse(result[:link]).host.gsub("www.", "") rescue nil
-        next unless result_host
+    
+    (0..9).each do |page_number|
+      start_index = page_number * 10
+      
+      puts "   -> Verificando Página #{page_number + 1} (Resultados #{start_index + 1} a #{start_index + 10})..."
 
-        if result_host.include?(clean_domain)
-          found_position = index + 1
-          break
+      search = SerpApiSearch.new(
+        q: tracked_keyword.keyword,
+        engine: 'google',
+        api_key: ENV['SERPAPI_KEY'],
+        gl: tracked_keyword.gl.presence || 'br',
+        hl: tracked_keyword.hl.presence || 'pt',
+        start: start_index 
+      )
+
+      results = search.get_hash
+
+      if results[:organic_results]
+        results[:organic_results].each_with_index do |result, index|
+          next unless result[:link]
+          result_host = URI.parse(result[:link]).host.gsub("www.", "") rescue nil
+          next unless result_host
+
+          if result_host.include?(clean_domain)
+            found_position = start_index + index + 1
+            break
+          end
         end
+      else
+        break 
       end
+
+      break if found_position.present?
     end
 
     if found_position
@@ -50,7 +57,7 @@ class SeoCheckWorker
       )
       puts "✅ Posição encontrada: #{found_position}. Histórico guardado para a palavra-chave ID: #{tracked_keyword_id}."
     else
-      puts "❌ Domínio não encontrado para a palavra-chave ID: #{tracked_keyword_id}."
+      puts "❌ Domínio não encontrado (varreu o Top 100) para a palavra-chave ID: #{tracked_keyword_id}."
     end
   end
 end
