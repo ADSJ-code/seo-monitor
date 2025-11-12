@@ -1,15 +1,13 @@
 require_relative "boot"
 
-# require "rails/all" # <= NÓS REMOVEMOS ISTO
-
-# Inclua os frameworks que você precisa - pulando ActiveRecord
+# Estamos carregando apenas os frameworks que precisamos, pulando o ActiveRecord.
 require "action_controller/railtie"
 require "action_view/railtie"
 require "action_mailer/railtie"
 require "active_job/railtie"
 require "action_cable/engine"
-# require "active_storage/engine" # Já removemos em production.rb
-require "action_text/engine"
+# require "active_storage/engine" # Pulado: Depende do ActiveRecord
+# require "action_text/engine" # Pulado: Depende do ActiveStorage
 require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -20,10 +18,6 @@ module SeoMonitor
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
-
-    # Por favor, adicione o código de configuração que já existia no seu application.rb original
-    # (ex: config.time_zone, etc.)
-    # ...
 
     # Configuration for the application, engines, and railties goes here.
     #
