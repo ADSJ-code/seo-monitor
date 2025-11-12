@@ -4,10 +4,14 @@ Rails.application.configure do
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local = false
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present? || true
+
   config.assets.compile = false
-  config.assume_ssl = true
-  config.force_ssl = true
+  
+  config.assume_ssl = false
+  config.force_ssl = false
+
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
@@ -15,13 +19,6 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
   config.i18n.fallbacks = true
   config.active_support.report_deprecations = false
-  
-  # Alteração aqui: mudamos de true para false
   config.require_master_key = false 
-
-  # config.credentials.key_path = Rails.root.join("config/credentials/#{Rails.env.downcase}.key")
   config.new_framework_defaults_8_0 = true
-
-  # Store uploaded files on the local file system in a temporary directory.
-  # config.active_storage.service = :local
 end
