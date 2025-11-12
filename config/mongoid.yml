@@ -1,6 +1,7 @@
 production:
   clients:
     default:
-      uri: <%= ENV.fetch('MONGODB_URL') %>
+      
+      uri: <%= ENV['MONGODB_URL'] %>
       options:
         server_selection_timeout: 5
