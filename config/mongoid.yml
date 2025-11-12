@@ -1,14 +1,6 @@
-development:
+production:
   clients:
     default:
-      database: seo_monitor_dev
-      hosts:
-        - localhost:27017
-
-test:
-  clients:
-    default:
-      database: seo_monitor_test
-      hosts:
-        - localhost:27017
-      
+      uri: <%= ENV.fetch('MONGODB_URL') %>
+      options:
+        server_selection_timeout: 5
