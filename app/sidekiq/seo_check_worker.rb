@@ -1,4 +1,5 @@
-require 'uri'
+# app/sidekiq/seo_check_worker.rb
+require 'uri' 
 
 class SeoCheckWorker
   include Sidekiq::Worker
@@ -12,13 +13,17 @@ class SeoCheckWorker
 
     clean_domain = URI.parse(tracked_keyword.domain).host.gsub("www.", "") rescue tracked_keyword.domain.gsub("www.", "")
 
-    puts "🤖 Worker a verificar '#{tracked_keyword.keyword}' para o domínio limpo '#{clean_domain}'..."
+    # MUDANÇA: O log agora mostra o país e idioma do job
+    puts "🤖 Worker a verificar '#{tracked_keyword.keyword}' para o domínio limpo '#{clean_domain}' (País: #{tracked_keyword.gl}, Idioma: #{tracked_keyword.hl})..."
 
     search = SerpApiSearch.new(
       q: tracked_keyword.keyword,
       engine: 'google',
       api_key: ENV['SERPAPI_KEY'],
-      num: 100
+      num: 100,
+      # CORREÇÃO: Puxa os dados do banco de dados para este job
+      gl: tracked_keyword.gl.presence || 'br', # .presence usa 'br' se estiver em branco
+      hl: tracked_keyword.hl.presence || 'pt'
     )
 
     results = search.get_hash
@@ -27,7 +32,6 @@ class SeoCheckWorker
     if results[:organic_results]
       results[:organic_results].each_with_index do |result, index|
         next unless result[:link]
-
         result_host = URI.parse(result[:link]).host.gsub("www.", "") rescue nil
         next unless result_host
 

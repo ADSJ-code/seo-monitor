@@ -21,7 +21,7 @@ class TrackedKeywordsController < ApplicationController
   end
 
   # POST /tracked_keywords or /tracked_keywords.json
- # POST /tracked_keywords or /tracked_keywords.json
+  # POST /tracked_keywords or /tracked_keywords.json
   def create
     @tracked_keyword = TrackedKeyword.new(tracked_keyword_params)
 
@@ -64,9 +64,9 @@ class TrackedKeywordsController < ApplicationController
   end
 
   def check_rank
-  SeoCheckWorker.perform_async(@tracked_keyword.id.to_s)
-  head :ok
-end
+    SeoCheckWorker.perform_async(@tracked_keyword.id.to_s)
+    head :ok
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -76,6 +76,7 @@ end
 
     # Only allow a list of trusted parameters through.
     def tracked_keyword_params
-      params.expect(tracked_keyword: [ :keyword, :domain ])
+      # CORREÇÃO: Adicionamos :gl e :hl
+      params.expect(tracked_keyword: [ :keyword, :domain, :gl, :hl ])
     end
 end

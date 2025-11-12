@@ -21,7 +21,20 @@
     <%= form.text_field :domain %>
   </div>
 
-  <div>
+  <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+    <div>
+      <%= form.label :gl, "Country Code (gl)", style: "display: block" %>
+      <%= form.text_field :gl, size: 5 %>
+      <small>Ex: br, us, de</small>
+    </div>
+  
+    <div>
+      <%= form.label :hl, "Language Code (hl)", style: "display: block" %>
+      <%= form.text_field :hl, size: 5 %>
+      <small>Ex: pt, en, de</small>
+    </div>
+  </div>
+  <div style="margin-top: 1rem;">
     <%= form.submit %>
   </div>
 <% end %>
