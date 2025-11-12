@@ -1,8 +1,6 @@
-# app/sidekiq/seo_check_worker.rb
 class SeoCheckWorker
   include Sidekiq::Worker
 
-  # O método perform é o que o Sidekiq executa
   def perform(tracked_keyword_id)
     tracked_keyword = TrackedKeyword.find(tracked_keyword_id)
 
@@ -16,7 +14,7 @@ class SeoCheckWorker
     search = SerpApiSearch.new(
       q: tracked_keyword.keyword,
       engine: 'google',
-      api_key: Rails.application.credentials.serpapi[:api_key]
+      api_key: ENV['SERPAPI_KEY']
     )
 
     results = search.get_hash
