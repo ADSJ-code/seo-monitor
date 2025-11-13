@@ -5,13 +5,13 @@ ruby "3.3.3"
 
 gem "rails", "~> 8.0.2"
 
-# Nossas Gems Customizadas
 gem 'mongoid', '~> 8.0'
-gem 'google_search_results'
+gem 'serpapi'
 gem 'sidekiq'
 gem 'redis'
+gem 'dotenv-rails'
+gem 'http_accept_language'
 
-# Gems Padrão do Rails
 gem "propshaft"
 gem "puma", ">= 5.0"
 gem "importmap-rails"

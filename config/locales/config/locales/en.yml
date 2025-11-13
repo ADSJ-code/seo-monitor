@@ -1,0 +1,36 @@
+en:
+  app_name: "SEO Monitor"
+  helpers:
+    submit:
+      tracked_keyword:
+        create: "Create Tracked keyword"
+        update: "Update Tracked keyword"
+  tracked_keywords:
+    index:
+      title: "Tracked keywords"
+      keyword: "Keyword"
+      domain: "Domain"
+      show_link: "Show this tracked keyword"
+      new_link: "New tracked keyword"
+    show:
+      keyword: "Keyword"
+      domain: "Domain"
+      edit: "Edit this tracked keyword"
+      back: "Back to tracked keywords"
+      destroy: "Destroy this tracked keyword"
+      ranking_history: "Ranking History"
+      check_ranking_now: "Check Ranking Now"
+      date: "Date"
+      position: "Position"
+    new:
+      title: "New tracked keyword"
+      back: "Back to tracked keywords"
+    edit:
+      title: "Editing tracked keyword"
+      show: "Show this tracked keyword"
+      back: "Back to tracked keywords"
+    form:
+      keyword: "Keyword"
+      domain: "Domain"
+      gl: "Country (gl)"
+      hl: "Language (hl)"

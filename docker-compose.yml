@@ -1,9 +1,11 @@
+version: '3.8'
+
 services:
   web:
     build: .
-    command: bundle exec rails s -b 0.0.0.0
+    command: bundle exec rails s -b '0.0.0.0'
     volumes:
-      - .:/app
+      - .:/rails
     ports:
       - "3000:3000"
     depends_on:
@@ -11,31 +13,37 @@ services:
       - redis
     env_file:
       - ./.env
+    environment:
+      MONGODB_URL: mongodb://db:27017/seo_monitor_production
+      REDIS_URL: redis://redis:6379/0
 
-  worker:
+  sidekiq:
     build: .
     command: bundle exec sidekiq
     volumes:
-      - .:/app
+      - .:/rails
     depends_on:
       - db
       - redis
     env_file:
       - ./.env
+    environment:
+      MONGODB_URL: mongodb://db:27017/seo_monitor_production
+      REDIS_URL: redis://redis:6379/0
 
   db:
     image: mongo:latest
-    volumes:
-      - mongo_data:/data/db
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
   redis:
     image: redis:latest
-    volumes:
-      - redis_data:/data
     ports:
       - "6379:6379"
+    volumes:
+      - redis_data:/data
 
 volumes:
   mongo_data:

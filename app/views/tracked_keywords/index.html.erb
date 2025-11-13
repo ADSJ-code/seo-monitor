@@ -1,16 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Tracked keywords" %>
-
-<h1>Tracked keywords</h1>
+<h1><%= t('.title') %></h1>
 
 <div id="tracked_keywords">
   <% @tracked_keywords.each do |tracked_keyword| %>
-    <%= render tracked_keyword %>
-    <p>
-      <%= link_to "Show this tracked keyword", tracked_keyword %>
-    </p>
+    <div id="<%= dom_id tracked_keyword %>">
+      <p>
+        <strong><%= t('.keyword') %>:</strong>
+        <%= tracked_keyword.keyword %>
+      </p>
+    
+      <p>
+        <strong><%= t('.domain') %>:</strong>
+        <%= tracked_keyword.domain %>
+      </p>
+    
+      <p>
+        <%= link_to t('.show_link'), tracked_keyword %>
+      </p>
+    </div>
+    <hr>
   <% end %>
 </div>
 
-<%= link_to "New tracked keyword", new_tracked_keyword_path %>
+<%= link_to t('.new_link'), new_tracked_keyword_path %>

@@ -1,0 +1,47 @@
+pt-BR:
+  app_name: "Monitor de SEO"
+  helpers:
+    submit:
+      tracked_keyword:
+        create: "Criar Palavra-chave"
+        update: "Atualizar Palavra-chave"
+  tracked_keywords:
+    index:
+      title: "Palavras-chave Rastreadas"
+      keyword: "Palavra-chave"
+      domain: "Domínio"
+      show_link: "Ver esta palavra-chave"
+      new_link: "Nova palavra-chave"
+    show:
+      keyword: "Palavra-chave"
+      domain: "Domínio"
+      edit: "Editar esta palavra-chave"
+      back: "Voltar para palavras-chave"
+      destroy: "Remover esta palavra-chave"
+      ranking_history: "Histórico de Ranking"
+      check_ranking_now: "Verificar Ranking Agora"
+      date: "Data"
+      position: "Posição"
+    new:
+      title: "Nova palavra-chave"
+      back: "Voltar para palavras-chave"
+    edit:
+      title: "Editando palavra-chave"
+      show: "Ver esta palavra-chave"
+      back: "Voltar para palavras-chave"
+    form:
+      keyword: "Palavra-chave"
+      domain: "Domínio"
+      gl: "País (gl)"
+      hl: "Idioma (hl)"
+
+  mongoid:
+    errors:
+      messages:
+        document_not_found:
+          message_title: "Documento não encontrado"
+          summary_title: "Resumo"
+          resolution_title: "Resolução"
+          message: "Não foi possível encontrar o documento para o(s) id(s) fornecido(s): %{ids}."
+          summary: "Ao tentar encontrar o documento da classe %{klass} com o(s) id(s) %{ids}, o Mongoid não o(s) encontrou no banco de dados."
+          resolution: "Verifique se o(s) id(s) %{ids} está(ão) correto(s) e se o documento realmente existe no banco de dados. Você pode verificar os documentos existentes no banco de dados com %{klass}.all."

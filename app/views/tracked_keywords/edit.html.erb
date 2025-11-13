@@ -1,12 +1,10 @@
-<% content_for :title, "Editing tracked keyword" %>
-
-<h1>Editing tracked keyword</h1>
+<h1><%= t('.title') %></h1>
 
 <%= render "form", tracked_keyword: @tracked_keyword %>
 
 <br>
 
 <div>
-  <%= link_to "Show this tracked keyword", @tracked_keyword %> |
-  <%= link_to "Back to tracked keywords", tracked_keywords_path %>
+  <%= link_to t('.show'), @tracked_keyword %> |
+  <%= link_to t('.back'), tracked_keywords_path %>
 </div>

@@ -9,6 +9,9 @@ class TrackedKeyword
   field :gl, type: String, default: "br"
   field :hl, type: String, default: "pt"
 
+  field :status, type: String
+  field :error_message, type: String
+
   validates :keyword, presence: true
   validates :domain, presence: true
 end

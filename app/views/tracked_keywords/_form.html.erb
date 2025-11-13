@@ -12,29 +12,26 @@
   <% end %>
 
   <div>
-    <%= form.label :keyword, style: "display: block" %>
+    <%= form.label :keyword, t('.keyword') %>
     <%= form.text_field :keyword %>
   </div>
 
   <div>
-    <%= form.label :domain, style: "display: block" %>
+    <%= form.label :domain, t('.domain') %>
     <%= form.text_field :domain %>
   </div>
 
-  <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-    <div>
-      <%= form.label :gl, "Country Code (gl)", style: "display: block" %>
-      <%= form.text_field :gl, size: 5 %>
-      <small>Ex: br, us, de</small>
-    </div>
-  
-    <div>
-      <%= form.label :hl, "Language Code (hl)", style: "display: block" %>
-      <%= form.text_field :hl, size: 5 %>
-      <small>Ex: pt, en, de</small>
-    </div>
+  <div>
+    <%= form.label :gl, t('.gl') %>
+    <%= form.text_field :gl %>
   </div>
-  <div style="margin-top: 1rem;">
+
+  <div>
+    <%= form.label :hl, t('.hl') %>
+    <%= form.text_field :hl %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
