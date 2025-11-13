@@ -32,3 +32,4 @@
 
 # Ignore the local environment file, but NOT the example file.
 /.envdata/
+data/
