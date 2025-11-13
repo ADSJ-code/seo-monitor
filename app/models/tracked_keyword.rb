@@ -16,8 +16,8 @@ class TrackedKeyword
   validates :domain, presence: true
 
   before_update :clear_history_if_changed
-  after_commit :queue_ranking_check, on: [:create]
-  after_commit :queue_ranking_check_if_needed, on: [:update]
+  after_create :queue_ranking_check
+  after_update :queue_ranking_check_if_needed
 
   private
 
