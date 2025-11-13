@@ -16,12 +16,24 @@ class TrackedKeyword
   validates :domain, presence: true
 
   before_update :clear_history_if_changed
+  after_commit :queue_ranking_check, on: [:create]
+  after_commit :queue_ranking_check_if_needed, on: [:update]
 
   private
 
   def clear_history_if_changed
     if keyword_changed? || domain_changed?
       self.ranking_histories.destroy_all
+    end
+  end
+
+  def queue_ranking_check
+    SeoCheckWorker.perform_async(self.id.to_s)
+  end
+
+  def queue_ranking_check_if_needed
+    if keyword_changed? || domain_changed?
+      SeoCheckWorker.perform_async(self.id.to_s)
     end
   end
 end
