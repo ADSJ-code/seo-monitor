@@ -31,4 +31,4 @@
 /config/master.key
 
 # Ignore the local environment file, but NOT the example file.
-/.env
+/.envdata/

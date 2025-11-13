@@ -26,7 +26,7 @@ This project is fully containerized. You only need Docker and Docker Compose ins
 
 1.  Clone the repository:
     ```bash
-    git clone [URL_DO_SEU_REPOSITORIO]
+    git clone https://github.com/ADSJ-code/seo-monitor
     cd seo-monitor
     ```
 
