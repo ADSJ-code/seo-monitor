@@ -18,38 +18,57 @@ The application is fully internationalized (i18n) and automatically detects the 
 
 ---
 
-## 🏁 How to Run (Docker)
+---
 
-This project is fully containerized. You only need Docker and Docker Compose installed to run it.
+## 🏁 How to Run (One-Command Setup)
+
+This project is fully containerized using Docker Compose. It includes advanced Health Checks to guarantee zero Race Conditions between the four services (Web, Sidekiq, MongoDB, Redis).
 
 ### 1. Configuration
 
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/ADSJ-code/seo-monitor
-    cd seo-monitor
-    ```
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/ADSJ-code/seo-monitor](https://github.com/ADSJ-code/seo-monitor)
+    cd seo-monitor
+    ```
 
-2.  Create your environment file by copying the example:
-    ```bash
-    cp .env.example .env
-    ```
+2.  Create your environment file by copying the example:
+    ```bash
+    cp .env.example .env
+    ```
 
-3.  Edit the `.env` file and add your personal SerpApi API Key:
-    ```bash
-    nano .env
-    ```
-    ```
-    SERPAPI_API_KEY="YOUR_API_KEY_HERE"
-    ```
+3.  **Critical Step:** Edit the `.env` file and add your personal SerpApi API Key:
+    ```bash
+    nano .env
+    ```
+    ```
+    SERPAPI_API_KEY="YOUR_API_KEY_HERE"
+    ```
 
-### 2. Run the Application
+### 2. Start Services and Validate
 
-With Docker running, execute the following commands in your terminal:
+Execute this single command to **build the images**, **start all 4 services**, and run the **database setup** automatically in the background:
 
 ```bash
-# 1. Build the images (This may take a few minutes the first time)
-docker-compose build
+docker-compose up --build -d
+```
 
-# 2. Start all services (Web, Sidekiq, DB, and Redis)
-docker-compose up
+### 3. Verification and Access
+
+1. Check Service Health: Wait 15-30 seconds, then check the status. All 4 services must show (healthy).
+
+```bash
+docker-compose ps
+```
+
+2. Access the Application: Once all services are healthy, open your browser:
+
+Web Application: http://localhost:3000 (Assuming port 3000 is configured)
+
+Sidekiq Dashboard: http://localhost:3000/sidekiq
+
+Stop Services: To cleanly stop and remove the containers:
+
+```bash
+docker-compose down
+```
