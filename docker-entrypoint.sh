@@ -6,4 +6,4 @@ bundle exec rails runner "Mongoid::Tasks::Database.create_indexes"
 
 rm -f /rails/tmp/pids/server.pid
 
-exec "$@" 
+exec "$@"
