@@ -9,6 +9,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  
   redis:
     image: redis:latest
     restart: always
@@ -17,22 +18,34 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   web:
     build: .
     command: sh -c "./docker-entrypoint.sh && bundle exec puma -C config/puma.rb"
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: production
+      MONGO_HOST: db
+      REDIS_URL: redis://redis:6379/1
     depends_on:
       db:
         condition: service_healthy
       redis:
-        condition: service_healthy 
+        condition: service_healthy
+  
   sidekiq:
     build: .
     command: sh -c "./docker-entrypoint.sh && bundle exec sidekiq -C config/sidekiq.yml"
+    environment:
+      RAILS_ENV: production
+      MONGO_HOST: db
+      REDIS_URL: redis://redis:6379/1
     depends_on:
       db:
         condition: service_healthy
       redis:
-        condition: service_healthy 
+        condition: service_healthy
 
 volumes:
   mongo_data:
