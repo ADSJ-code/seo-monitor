@@ -1,13 +1,9 @@
 #!/bin/bash
 set -e
 
-if [ -f /app/.env ]; then
-   export $(cat /app/.env | xargs)
-fi
+echo "=> Executing MongoDB index creation/update..."
+bundle exec rails runner "Mongoid::Tasks::Database.create_indexes"
 
-echo "=> Executando a criação/atualização de índices do MongoDB..."
-bundle exec rake db:mongoid:create_indexes
+rm -f /rails/tmp/pids/server.pid
 
-rm -f /app/tmp/pids/server.pid
-
-exec "$@"
+exec "$@" 
