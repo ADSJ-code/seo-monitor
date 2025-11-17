@@ -28,7 +28,7 @@ This project is fully containerized using Docker Compose. It includes advanced H
 
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/ADSJ-code/seo-monitor](https://github.com/ADSJ-code/seo-monitor)
+    git clone https://github.com/ADSJ-code/seo-monitor
     cd seo-monitor
     ```
 
