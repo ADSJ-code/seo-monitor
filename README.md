@@ -26,11 +26,14 @@ This project is fully containerized using Docker Compose. It includes advanced H
 
 ### 1. Configuration
 
-1.  Clone the repository:
+1.  Clone and acess the repository:
     ```bash
     git clone https://github.com/ADSJ-code/seo-monitor
-    cd seo-monitor
     ```
+
+    ```bash
+    cd seo-monitor
+    ```
 
 2.  Create your environment file by copying the example:
     ```bash
@@ -41,6 +44,12 @@ This project is fully containerized using Docker Compose. It includes advanced H
     ```bash
     nano .env
     ```
+    Or
+
+    ```bash
+    code .env
+    ```
+
     ```
     SERPAPI_API_KEY="YOUR_API_KEY_HERE"
     ```
@@ -64,8 +73,6 @@ docker-compose ps
 2. Access the Application: Once all services are healthy, open your browser:
 
 Web Application: http://localhost:3000 (Assuming port 3000 is configured)
-
-Sidekiq Dashboard: http://localhost:3000/sidekiq
 
 Stop Services: To cleanly stop and remove the containers:
 
