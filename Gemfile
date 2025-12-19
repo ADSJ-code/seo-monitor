@@ -5,7 +5,7 @@ ruby "3.3.3"
 
 gem "rails", "~> 8.0.2"
 
-gem 'mongoid', '~> 8.0'
+gem 'mongoid', '~> 9.0'
 gem 'serpapi'
 gem 'sidekiq'
 gem 'redis'
